@@ -18,7 +18,28 @@ const createproduct = async function (req, res){
 
 }
 
+const getProduct= async function(res,req){
+    try {
+        let productName = req.params.name
+        if (!productName)
+            return res.status(400).send({ status: false, msg: "please give product Name" })
+  
+        let product = await productModel.findOne(productName)       
+        return res.status(200).send({ status: true, message: "Success", data: product })
+    } catch (error) {
+        res.status(500).send({ status: false, msg: error.message });
+    }
+  }
 
-const getAllProduct= async function(req,res){
-    
-}
+const getProductsByCategory= async function(req,res){
+    try {
+        let productCategory = req.params.Category
+        if (!productCategory)
+            return res.status(400).send({ status: false, msg: "please give product Category" })
+  
+        let product = await productModel.find(productCategory)       
+        return res.status(200).send({ status: true, message: "Success", data: product })
+    } catch (error) {
+        res.status(500).send({ status: false, msg: error.message });
+    }
+  }
